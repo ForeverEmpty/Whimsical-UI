@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter @whimsical-ui/play dev",
+    "story": "pnpm --filter @whimsical-ui/play storybook",
     "docs:dev": "pnpm --filter @whimsical-ui/docs dev",
     "docs:build": "pnpm --filter @whimsical-ui/docs build",
     "docs:preview": "pnpm --filter @whimsical-ui/docs preview",
-    "test": "echo 'todo'"
-
+    "test": "pnpm --filter @whimsical-ui/components test"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,9 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/tsconfig": "^0.8.1",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/vue-fontawesome": "^3.1.2",
     "postcss-color-mix": "^1.1.0",
     "postcss-each": "^1.1.0",
     "postcss-each-variables": "^0.3.0",

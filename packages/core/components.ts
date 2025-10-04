@@ -1,6 +1,7 @@
-import { WButton } from '@whimsical-ui/components'
+import { WButton, WIcon } from '@whimsical-ui/components'
 import type { Plugin } from 'vue'
 
 export default [
-    WButton
+    WButton,
+    WIcon
 ] as Plugin[]
