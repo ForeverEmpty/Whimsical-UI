@@ -1,0 +1,67 @@
+@import './reset.css';
+
+:root {
+  /* colors */
+  --w-color-white: #ffffff;
+  --w-color-black: #000000;
+  --colors: (primary: #409eff, success: #67c23a, warning: #e6a23c, danger: #f56c6c, info: #909399);
+  --w-bg-color: #ffffff;
+  --w-bg-color-page: #f2f3f5;
+  --w-bg-color-overlay: #ffffff;
+  --w-text-color-primary: #303133;
+  --w-text-color-regular: #606266;
+  --w-text-color-secondary: #909399;
+  --w-text-color-placeholder: #a8abb2;
+  --w-text-color-disabled: #c0c4cc;
+  --w-border-color: #dcdfe6;
+  --w-border-color-light: #e4e7ed;
+  --w-border-color-lighter: #ebeef5;
+  --w-border-color-extra-light: #f2f6fc;
+  --w-border-color-dark: #d4d7de;
+  --w-border-color-darker: #cdd0d6;
+  --w-fill-color: #f0f2f5;
+  --w-fill-color-light: #f5f7fa;
+  --w-fill-color-lighter: #fafafa;
+  --w-fill-color-extra-light: #fafcff;
+  --w-fill-color-dark: #ebedf0;
+  --w-fill-color-darker: #e6e8eb;
+  --w-fill-color-blank: #ffffff;
+  
+  @each $val, $color in var(--colors) {
+    --w-color-$(val): $(color);
+    @for $i from 3 to 9 {
+      --w-color-$(val)-light-$(i): mix(#fff, $(color), 0.$(i));
+    }
+    --w-color-$(val)-dark-2: mix(#000, $(color), 0.2);
+  }
+
+  /* border */
+  --w-border-width: 1px;
+  --w-border-style: solid;
+  --w-border-color-hover: var(--w-text-color-disabled);
+  --w-border: var(--w-border-width) var(--w-border-style) var(--w-border-color);
+  --w-border-radius-base: 4px;
+  --w-border-radius-small: 2px;
+  --w-border-radius-round: 20px;
+  --w-border-radius-circle: 100%;
+
+  /*font*/
+  --w-font-size-extra-large: 20px;
+  --w-font-size-large: 18px;
+  --w-font-size-medium: 16px;
+  --w-font-size-base: 14px;
+  --w-font-size-small: 13px;
+  --w-font-size-extra-small: 12px;
+  --w-font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '\5fae\8f6f\96c5\9ed1', Arial, sans-serif;
+  --w-font-weight-primary: 500;
+
+  /*disabled*/
+  --w-disabled-bg-color: var(--w-fill-color-light);
+  --w-disabled-text-color: var(--w-text-color-placeholder);
+  --w-disabled-border-color: var(--w-border-color-light);
+
+  /*animation*/
+  --w-transition-duration: 0.4s;
+  --w-transition-duration-fast: 0.2s;
+}
