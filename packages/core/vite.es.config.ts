@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
-import { readdirSync, readdir } from "fs";
+import { readdirSync } from "fs";
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
-import { defer, delay, filter, map, includes  } from 'lodash-es'
+import { filter, map, includes  } from 'lodash-es'
 
 function getDirectoriesSync(basePath: string) {
   const entries = readdirSync(basePath, { withFileTypes: true });
