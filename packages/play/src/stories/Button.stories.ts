@@ -3,6 +3,7 @@ import { fn, within, userEvent, expect } from 'storybook/test'
 
 
 import { WButton, WButtonGroup } from 'whimsical-ui'
+import 'whimsical-ui/dist/theme/Button.css'
 
 type Story = StoryObj<typeof WButton> & { argTypes: ArgTypes }
 

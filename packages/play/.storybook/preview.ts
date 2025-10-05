@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/vue3-vite'
+import 'whimsical-ui/dist/index.css'
 
 const preview: Preview = {
   parameters: {

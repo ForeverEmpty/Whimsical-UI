@@ -11,25 +11,26 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/types/core/index.d.ts",
       "import": "./dist/es/index.js",
-      "require": "./dist/umd/index.umd.cjs",
-      "types": "./dist/types/core/index.d.ts"
+      "require": "./dist/umd/index.umd.cjs"
     },
     "./dist/": {
       "import": "./dist/",
       "require": "./dist/"
-      }
+    }
   },
   "sideEffects": [
     "./dist/index.css"
   ],
   "scripts": {
-    "build": "run-s clean build-noly move-style",
-    "build-noly": "run-p build-es build-umd",
+    "build": "run-p build-es build-umd",
+    "build:watch": "run-p build-es:watch build-umd:watch", 
     "build-umd": "vite build --config vite.umd.config.ts",
     "build-es": "vite build --config vite.es.config.ts",
-    "move-style": "move-file dist/es/index.css dist/index.css",
-    "clean": "rimraf dist"
+    "build-umd:watch": "vite build --watch --config vite.umd.config.ts",
+    "build-es:watch": "vite build --watch --config vite.es.config.ts",
+    "release": "release-it"
   },
   "keywords": [],
   "author": "",
@@ -41,5 +42,9 @@
   },
   "peerDependencies": {
     "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "terser": "^5.44.0"
   }
 }
