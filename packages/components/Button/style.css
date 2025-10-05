@@ -70,7 +70,7 @@
   }
   /*circle*/
   &.is-circle {
-    border-radius: 50%;
+    border-radius: 100%;
     padding: 8px;
   }
   /*disabled*/
@@ -158,7 +158,7 @@
   &::after {
     clear: both;
   }
-  & > :deep(.er-button){
+  & > :deep(.w-button){
     float: left;
     position: relative;
     margin-left: 0;
@@ -192,7 +192,7 @@
       }
 
       &.is-circle {
-        border-radius: 50%;
+        border-radius: 100%;
       }
     }
   }

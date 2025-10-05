@@ -9,21 +9,26 @@
     "docs:dev": "pnpm --filter @whimsical-ui/docs dev",
     "docs:build": "pnpm --filter @whimsical-ui/docs build",
     "docs:preview": "pnpm --filter @whimsical-ui/docs preview",
-    "test": "pnpm --filter @whimsical-ui/components test"
+    "test": "pnpm --filter @whimsical-ui/components test",
+    "build": "pnpm --filter whimsical-ui build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.16.1",
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/vue-fontawesome": "^3.1.2",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^24.6.2",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/tsconfig": "^0.8.1",
-    "@fortawesome/fontawesome-svg-core": "^7.1.0",
-    "@fortawesome/free-solid-svg-icons": "^7.1.0",
-    "@fortawesome/vue-fontawesome": "^3.1.2",
+    "@popperjs/core": "^2.11.8",
+    "async-validator": "^4.2.5",
+    "move-file-cli": "^3.0.0",
+    "npm-run-all": "^4.1.5",
     "postcss-color-mix": "^1.1.0",
     "postcss-each": "^1.1.0",
     "postcss-each-variables": "^0.3.0",
@@ -35,11 +40,11 @@
     "vue-tsc": "^3.1.0"
   },
   "dependencies": {
+    "@whimsical-ui/hooks": "workspace:*",
+    "@whimsical-ui/theme": "workspace:*",
+    "@whimsical-ui/utils": "workspace:*",
     "lodash-es": "^4.17.21",
     "vue": "^3.5.22",
-    "whimsical-ui": "workspace:*",
-    "@whimsical-ui/hooks": "workspace:*",
-    "@whimsical-ui/utils": "workspace:*",
-    "@whimsical-ui/theme": "workspace:*"
+    "whimsical-ui": "workspace:*"
   }
 }

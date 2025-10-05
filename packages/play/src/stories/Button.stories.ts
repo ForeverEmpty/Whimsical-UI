@@ -2,7 +2,7 @@ import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3-vite'
 import { fn, within, userEvent, expect } from 'storybook/test'
 
 
-import { WButton } from 'whimsical-ui'
+import { WButton, WButtonGroup } from 'whimsical-ui'
 
 type Story = StoryObj<typeof WButton> & { argTypes: ArgTypes }
 
@@ -86,5 +86,81 @@ export const Default: Story & {args: { content: string }} = {
     expect(args.onClick).toHaveBeenCalled();
   }
 }
+
+export const Circle: Story = {
+  args: {
+    icon: "search",
+  },
+  render: (args: any) => ({
+    components: { WButton },
+    setup() {
+      return { args };
+    },
+    template: container(`
+      <w-button circle v-bind="args"/>
+    `),
+  }),
+  play: async ({ canvasElement, args, step }: any) => {
+    const canvas = within(canvasElement);
+    await step("click button", async () => {
+      await userEvent.click(canvas.getByRole("button"));
+    });
+
+    expect(args.onClick).toHaveBeenCalled();
+  },
+};
+
+Circle.parameters = {};
+
+export const Group: Story & { args: { content1: string; content2: string } } = {
+  argTypes: {
+    groupType: {
+      control: { type: "select" },
+      options: ["primary", "success", "warning", "danger", "info", ""],
+    },
+    groupSize: {
+      control: { type: "select" },
+      options: ["large", "default", "small", ""],
+    },
+    groupDisabled: {
+      control: "boolean",
+    },
+    content1: {
+      control: { type: "text" },
+      defaultValue: "Button1",
+    },
+    content2: {
+      control: { type: "text" },
+      defaultValue: "Button2",
+    },
+  },
+  args: {
+    round: true,
+    content1: "Button1",
+    content2: "Button2",
+  },
+  render: (args: any) => ({
+    components: { WButton, WButtonGroup },
+    setup() {
+      return { args };
+    },
+    template: container(`
+       <w-button-group :type="args.groupType" :size="args.groupSize" :disabled="args.groupDisabled">
+         <w-button v-bind="args">{{args.content1}}</w-button>
+         <w-button v-bind="args">{{args.content2}}</w-button>
+       </w-button-group>
+    `),
+  }),
+  play: async ({ canvasElement, args, step }: any) => {
+    const canvas = within(canvasElement);
+    await step("click btn1", async () => {
+      await userEvent.click(canvas.getByText("Button1"));
+    });
+    await step("click btn2", async () => {
+      await userEvent.click(canvas.getByText("Button2"));
+    });
+    expect(args.onClick).toHaveBeenCalled();
+  },
+};
 
 export default meta
