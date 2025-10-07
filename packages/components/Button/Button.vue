@@ -35,7 +35,10 @@ const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration)
 const _ref = ref<HTMLButtonElement | null>(null)
 
 defineExpose<ButtonInstance>({
-    ref: _ref
+    ref: _ref,
+    disable: disabled,
+    size: size,
+    type: type
 })
 </script>
 
