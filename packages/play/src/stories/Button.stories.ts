@@ -2,7 +2,7 @@ import type { Meta, StoryObj, ArgTypes } from '@storybook/vue3-vite'
 import { fn, within, userEvent, expect } from 'storybook/test'
 
 
-import { WButton, WButtonGroup } from 'whimsical-ui'
+import { WButton, WButtonGroup, type ButtonGroupProps, type ButtonProps } from 'whimsical-ui'
 import 'whimsical-ui/dist/theme/Button.css'
 
 type Story = StoryObj<typeof WButton> & { argTypes: ArgTypes }
@@ -59,7 +59,7 @@ const container = (val: string) => `
 </div>
 `;
 
-export const Default: Story & {args: { content: string }} = {
+export const Default: Story & {args: { content: string } | ButtonProps} = {
   argTypes: {
     content: {
       control: { type: "text" },
@@ -113,7 +113,7 @@ export const Circle: Story = {
 
 Circle.parameters = {};
 
-export const Group: Story & { args: { content1: string; content2: string } } = {
+export const Group: Story & { args: { content1: string; content2: string }} = {
   argTypes: {
     groupType: {
       control: { type: "select" },

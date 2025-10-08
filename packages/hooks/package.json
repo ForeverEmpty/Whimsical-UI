@@ -2,12 +2,31 @@
   "name": "@whimsical-ui/hooks",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest --coverage",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.16.1"
+  "packageManager": "pnpm@10.16.1",
+  "dependencies": {
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "terser": "^5.44.0"
+  }
 }

@@ -1,4 +1,4 @@
-import { WButton, WButtonGroup, WIcon, WCollapse, WCollapseItem, WAlert } from '@whimsical-ui/components'
+import { WButton, WButtonGroup, WIcon, WCollapse, WCollapseItem, WAlert, WTooltip } from '@whimsical-ui/components'
 import type { Plugin } from 'vue'
 
 export default [
@@ -7,5 +7,6 @@ export default [
     WIcon,
     WCollapse,
     WCollapseItem,
-    WAlert
+    WAlert,
+    WTooltip
 ] as Plugin[]

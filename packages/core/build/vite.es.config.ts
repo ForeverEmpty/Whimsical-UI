@@ -74,7 +74,7 @@ export default defineConfig({
         minify: false,
         cssCodeSplit: true,
         lib: {
-            entry: resolve(__dirname, './index.ts'),
+            entry: resolve(__dirname, '../index.ts'),
             name: 'WhimsicalUI',
             fileName: 'index',
             formats: ['es']

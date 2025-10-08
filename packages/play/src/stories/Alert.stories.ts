@@ -1,7 +1,7 @@
 import type { StoryObj, Meta, ArgTypes } from '@storybook/vue3-vite'
 import { ref, watch } from 'vue'
 import { fn } from 'storybook/test'
-import { WAlert, type AlertInstance } from 'whimsical-ui'
+import { WAlert, type AlertInstance, type AlertProps } from 'whimsical-ui'
 import 'whimsical-ui/dist/theme/Alert.css'
 
 type Story = StoryObj<typeof WAlert> & { argTypes?: ArgTypes };
@@ -28,7 +28,7 @@ const meta: Meta<typeof WAlert> = {
   },
 };
 
-export const Default: Story & { args: { visible: boolean } } = {
+export const Default: Story & { args: { visible: boolean } | AlertProps } = {
   args: {
     title: "标题",
     description: "这是一段描述",
