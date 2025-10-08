@@ -13,12 +13,15 @@
     "test-comp": "cross-env NODE_ENV=test pnpm --filter @whimsical-ui/components test",
     "test-utils": "cross-env NODE_ENV=test pnpm --filter @whimsical-ui/utils test",
     "test-hooks": "cross-env NODE_ENV=test pnpm --filter @whimsical-ui/hooks test",
-    "build": "run-s build-comp build-hooks",
+    "build": "run-s build-hooks build-comp",
     "build-comp": "cross-env NODE_ENV=production pnpm --filter whimsical-ui build",
     "build-hooks": "cross-env NODE_ENV=production pnpm --filter @whimsical-ui/hooks build",
     "build:dev": "cross-env NODE_ENV=development pnpm --filter whimsical-ui build build:watch",
     "release": "pnpm --filter whimsical-ui release"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
