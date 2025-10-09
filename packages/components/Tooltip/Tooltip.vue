@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TooltipProps, TooltipEmits, TooltipInstance } from './types'
+import type { ButtonInstance } from '../Button'
 import { computed, onUnmounted, ref, watch, watchEffect, type Ref } from 'vue'
 import { bind, debounce, isNil, type DebouncedFunc } from 'lodash-es'
 import { createPopper, type Instance} from '@popperjs/core'
@@ -11,7 +12,7 @@ defineOptions({
 })
 
 export interface _TooltipProps extends TooltipProps {
-    virtualRef?: HTMLElement | void
+    virtualRef?: HTMLElement | ButtonInstance | void;
     virtualTriggering?: boolean
 }
 
@@ -33,10 +34,15 @@ const dropdownEvents: Ref<Record<string, EventListener>> = ref({})
 
 const containerNode = ref<HTMLElement>()
 const popperNode = ref<HTMLElement>()
-const triggerNode = ref<HTMLElement>()
-const _triggerNode = computed<HTMLElement>(() => {
-    if (props.virtualTriggering) return (props.virtualRef as HTMLElement) ?? triggerNode.value as HTMLElement
-    return triggerNode.value as HTMLElement
+const _triggerNode = ref<HTMLElement>()
+const triggerNode = computed<HTMLElement>(() => {
+    if (props.virtualTriggering)
+        return (
+          ((props.virtualRef as ButtonInstance)?.ref as any) ??
+          (props.virtualRef as HTMLElement) ??
+          _triggerNode.value
+        );
+    return _triggerNode.value as HTMLElement;
 })
 
 
@@ -128,7 +134,7 @@ watch(visible, (val) => {
     if (!val) return
     if (_triggerNode.value && popperNode.value) {
         popperInstance = createPopper(
-            _triggerNode.value,
+            triggerNode.value,
             popperNode.value,
             popperOptions.value
         )
@@ -163,7 +169,7 @@ useClickOutside(containerNode, () => {
     visible.value && closeFinal()
 })
 
-useEvenstToTiggerNode(props, _triggerNode, events, () => {
+useEvenstToTiggerNode(props, triggerNode, events, () => {
     openDebounce?.cancel()
     setVisible(false)
 })
