@@ -1,26 +1,33 @@
 <script setup lang="ts">
-import { WDropdown, type DropdownItemProps } from 'whimsical-ui'
+import { ja, ko, en, zhCn, zhTw, WConfigProvider, WPopconfirm, WButton } from 'whimsical-ui'
+import { get } from "lodash-es";
 
-function confirm(e: MouseEvent) {
-  console.log('confirm', e)
-}
+import { computed, ref } from "vue";
 
-function cancel(e: MouseEvent) {
-  console.log('cancel', e)
-}
-
-const items: DropdownItemProps[] = [
-  { command: "1", label: "Action 1" },
-  { command: "2", label: "Action 2" },
-  { command: "3", label: "Action 3", disabled: true },
-  { command: "4", label: "Action 4", divided: true },
-];
+const language = ref('');
+const langMap = {
+  ja,
+  ko,
+  en,
+  zhCn,
+  zhTw,
+} as const;
+const locale = computed(() => get(langMap, language.value));
+const changelang = () => {
+  const l = ["zhCn", "zhTw", "ko", "en", "ja"];
+  language.value = l[(l.indexOf(language.value) + 1) % l.length] as string;
+};
 </script>
 
 <template>
-  <WDropdown :items="items" type="primary" splitButton>
-    123
-  </WDropdown>
+  <WButton @click="changelang" type="info" style="margin-right: 20px"
+    >change language</WButton
+  >
+  <WConfigProvider :locale="locale">
+    <WPopconfirm title="Are you shure to delete this item?">
+      <WButton>Delete</WButton>
+    </WPopconfirm>
+  </WConfigProvider>
 </template>
 
 <style scoped>

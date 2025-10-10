@@ -60,7 +60,7 @@ export default defineConfig({
         },
         rollupOptions: {
             external: [
-                'vue', 'lodash-es'
+                'vue', 'lodash-es', 'vue3-i18n'
             ],
             output: {
                 manualChunks(id) {

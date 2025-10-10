@@ -13,6 +13,7 @@ import { ref, provide, computed } from 'vue'
 import type { TooltipInstance } from '../Tooltip/types'
 import type { ButtonInstance } from '../Button/types'
 import { omit, isNil } from 'lodash-es'
+import { useDisabledStyle } from '@whimsical-ui/hooks'
 
 defineOptions({
     name: 'WDropdown',
@@ -35,6 +36,8 @@ function handleItemClick(e: DropdownItemProps) {
     props.hideOnClick && tooltipRef.value?.hide()
     !isNil(e.command) && emits('command', e.command)
 }
+
+!TEST && useDisabledStyle()
 
 provide(DROPDOWN_CTX_KEY, {
     handleItemClick,

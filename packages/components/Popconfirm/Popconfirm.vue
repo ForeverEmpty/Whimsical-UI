@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { PopconfirmProps, PopconfirmEmits } from './types'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { addUnit } from '@whimsical-ui/utils'
+import { useLocale } from '@whimsical-ui/hooks'
 
 import WTooltip from '../Tooltip/Tooltip.vue'
 import WButton from '../Button/Button.vue'
@@ -14,9 +15,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<PopconfirmProps>(), {
     title: '',
-    confirmButtonText: 'Yes',
     confirmButtonType: 'primary',
-    cancelButtonText: 'no',
     icon: 'question-circle',
     iconColor: '#f90',
     hideAfter: 200,
@@ -28,6 +27,8 @@ const tooltipRef = ref<TooltipInstance>()
 const style = computed(() => ({
     width: addUnit(props.width)
 }))
+
+const locale = useLocale()
 
 function hidePooper() {
     tooltipRef.value?.hide()
@@ -55,10 +56,10 @@ function cancel(e: MouseEvent) {
             </div>
             <div class="w-popconfirm__action">
                 <WButton size="small" :type="cancelButtonType" @click="cancel">
-                    {{ cancelButtonText }}
+                    {{ cancelButtonText || locale.t('popconfirm.cancelButtonText') }}
                 </WButton>
                 <WButton size="small" :type="confirmButtonType" @click="confim">
-                    {{ confirmButtonText }}
+                    {{ confirmButtonText || locale.t('popconfirm.confirmButtonText') }}
                 </WButton>
             </div>
         </template>
