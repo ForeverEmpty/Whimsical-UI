@@ -1,33 +1,22 @@
 <script setup lang="ts">
-import { ja, ko, en, zhCn, zhTw, WConfigProvider, WPopconfirm, WButton } from 'whimsical-ui'
-import { get } from "lodash-es";
+import { WButton, WMessage } from 'whimsical-ui'
 
-import { computed, ref } from "vue";
-
-const language = ref('');
-const langMap = {
-  ja,
-  ko,
-  en,
-  zhCn,
-  zhTw,
-} as const;
-const locale = computed(() => get(langMap, language.value));
-const changelang = () => {
-  const l = ["zhCn", "zhTw", "ko", "en", "ja"];
-  language.value = l[(l.indexOf(language.value) + 1) % l.length] as string;
+const open1 = () => {
+  WMessage({
+    message: "Congrats, this is a success message.",
+    type: "success",
+  });
+};
+const open2 = () => {
+  WMessage.success("Congrats, this is a success message.");
 };
 </script>
 
 <template>
-  <WButton @click="changelang" type="info" style="margin-right: 20px"
-    >change language</WButton
-  >
-  <WConfigProvider :locale="locale">
-    <WPopconfirm title="Are you shure to delete this item?">
-      <WButton>Delete</WButton>
-    </WPopconfirm>
-  </WConfigProvider>
+  <WButton @click="open1">插件式调用</WButton>
+  <WButton @click="open2">函数式调用</WButton>
+  <WButton @click="$message.success('Congrats, this is a success message.')"
+    >全局方法调用</WButton>
 </template>
 
 <style scoped>

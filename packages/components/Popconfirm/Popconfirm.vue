@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PopconfirmProps, PopconfirmEmits } from './types'
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { addUnit } from '@whimsical-ui/utils'
 import { useLocale } from '@whimsical-ui/hooks'
 
