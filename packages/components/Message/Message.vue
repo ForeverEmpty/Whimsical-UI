@@ -31,11 +31,12 @@ const { topOffset, bottomOffset } = useOffset({
 })
 
 const customStyle = computed(() => ({
-    top: addUnit(topOffset.value)
+    top: addUnit(topOffset.value),
+    zIndex: props.zIndex
 }))
 
 let timer: number
-function startTimmer() {
+function startTimer() {
     if (props.duration === 0) return
     timer = delay(close, props.duration)
 }
@@ -59,7 +60,7 @@ useEventListener(document, 'keydown', (e: Event) => {
 
 onMounted(() => {
     visible.value = true
-    startTimmer()
+    startTimer()
 })
 
 defineExpose<MessageCompInstance>({
@@ -86,7 +87,7 @@ defineExpose<MessageCompInstance>({
             v-show="visible"
             role="alert"
             @mouseenter="clearTimer"
-            @mouseleave="startTimmer"
+            @mouseleave="startTimer"
         >
           <WIcon class="w-message__icon" :icon="iconName" />
           <div class="w-message__content">
