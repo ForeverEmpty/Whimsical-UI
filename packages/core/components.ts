@@ -12,7 +12,8 @@ import {
     WConfigProvider, 
     WMessage, 
     WNotification, 
-    WInput 
+    WInput, 
+    WMessageBox
 } from '@whimsical-ui/components'
 import type { Plugin } from 'vue'
 
@@ -30,5 +31,6 @@ export default [
     WConfigProvider,
     WMessage,
     WNotification,
-    WInput
+    WInput,
+    WMessageBox
 ] as Plugin[]

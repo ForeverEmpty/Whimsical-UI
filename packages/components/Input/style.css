@@ -23,6 +23,21 @@
   line-height: var(--w-input-height);
   box-sizing: border-box;
   vertical-align: middle;
+
+  input[type="password"] {
+    -webkit-appearance: none;
+    &::-ms-reveal {
+      display: none;
+      pointer-events: none;
+    }
+    &::-ms-clear {
+      display: none;
+    }
+    &::-webkit-credentials-cramble-button {
+      appearance: none;
+    }
+  }
+
   &.is-disabled {
     cursor: not-allowed;
     .w-input__wrapper {
