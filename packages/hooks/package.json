@@ -16,7 +16,8 @@
   },
   "scripts": {
     "test": "vitest --coverage",
-    "build": "vite build"
+    "build": "vite build",
+    "build:watch": "vite build --watch"
   },
   "keywords": [],
   "author": "",

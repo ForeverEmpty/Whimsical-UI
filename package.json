@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "run-p build:dev dev-play",
+    "dev": "run-p build-hooks:dev build-comp:dev dev-play",
     "dev-play": "pnpm --filter @whimsical-ui/play dev",
     "story": "pnpm --filter @whimsical-ui/play storybook",
     "docs:dev": "pnpm --filter @whimsical-ui/docs dev",
@@ -17,7 +17,8 @@
     "build": "run-s build-hooks build-comp",
     "build-comp": "cross-env NODE_ENV=production pnpm --filter whimsical-ui build",
     "build-hooks": "cross-env NODE_ENV=production pnpm --filter @whimsical-ui/hooks build",
-    "build:dev": "cross-env NODE_ENV=development pnpm --filter whimsical-ui build build:watch",
+    "build-comp:dev": "cross-env NODE_ENV=development pnpm --filter whimsical-ui build:watch",
+    "build-hooks:dev": "cross-env NODE_ENV=development pnpm --filter @whimsical-ui/hooks build:watch",
     "release": "pnpm --filter whimsical-ui release"
   },
   "workspaces": [

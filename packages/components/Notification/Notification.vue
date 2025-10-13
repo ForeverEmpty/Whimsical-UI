@@ -4,7 +4,8 @@ import type { NotificationCompInstance, NotificationProps } from './types'
 import { useOffset, useEventListener } from '@whimsical-ui/hooks'
 import { addUnit, RenderVnode, typeIconMap } from '@whimsical-ui/utils';
 import { bind, delay } from 'lodash-es';
-import { WIcon } from 'whimsical-ui';
+import WIcon from '../Icon/Icon.vue';
+import { getLastBottomOffset } from './methods';
 
 defineOptions({
     name: 'WNotification'
@@ -14,6 +15,7 @@ const props = withDefaults(defineProps<NotificationProps>(), {
     type: 'info',
     duration: 30000,
     offset: 20,
+    position: 'top-right',
     transitionName: 'fade',
     showClose: true
 })
@@ -21,6 +23,9 @@ const props = withDefaults(defineProps<NotificationProps>(), {
 const visible = ref(false)
 const notifyRef = ref<HTMLDivElement>()
 const iconName = computed(() => typeIconMap.get(props.type) ?? 'circle-info')
+const horizontalClass = computed(() => props.position.endsWith('right') ? 'right' : 'left')
+const verticalProperty = computed(() => props.position.startsWith('top') ? 'top' : 'bottom')
+
 const boxHeight = ref(0)
 
 const { topOffset, bottomOffset } = useOffset({
@@ -30,7 +35,7 @@ const { topOffset, bottomOffset } = useOffset({
 })
 
 const customStyle = computed(() => ({
-    top: addUnit(topOffset.value),
+    [verticalProperty.value]: addUnit(topOffset.value),
     zIndex: props.zIndex
 }))
 
@@ -62,10 +67,10 @@ onMounted(() => {
     startTimer()
 })
 
-defineExpose<NotificationCompInstance>(
+defineExpose<NotificationCompInstance>({
     close,
     bottomOffset
-)
+})
 </script>
 
 <template>
@@ -75,19 +80,19 @@ defineExpose<NotificationCompInstance>(
         @enter="boxHeight = notifyRef!.getBoundingClientRect().height"
     >
         <div
-          ref="notifyRef"
-          class="w-notification"
-          :class="{
-            [`w-notification--${type}`]: type,
-            'show-close': showClose,
-            [horizontalClass]: true,
-          }"
-          :style="customStyle"
-          v-show="visible"
-          role="alert"
-          @click="onClick"
-          @mouseenter="clearTimer"
-          @mouseleave="startTimer"
+            ref="notifyRef"
+            class="w-notification"
+            :class="{
+                [`w-notification--${type}`]: type,
+                'show-close': showClose,
+                [horizontalClass]: true,
+            }"
+            :style="customStyle"
+            v-show="visible"
+            role="alert"
+            @click="onClick"
+            @mouseenter="clearTimer"
+            @mouseleave="startTimer"
         >
             <WIcon v-if="iconName" :icon="iconName" class="w-notification__icon" />
 
@@ -100,12 +105,12 @@ defineExpose<NotificationCompInstance>(
                 </div>
             </div>
             <div class="w-notification__close" v-if="showClose">
-              <WIcon icon="xmark" @click.stop="close" />
+                <WIcon icon="xmark" @click.stop="close" />
             </div>
         </div>
     </transition>
 </template>
 
 <style scoped>
-
+@import './style.css';
 </style>

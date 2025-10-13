@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import { WButton, WMessage } from 'whimsical-ui'
+import { reactive } from 'vue'
 
-const open1 = () => {
-  WMessage({
-    message: "Congrats, this is a success message.",
-    type: "success",
-  });
-};
-const open2 = () => {
-  WMessage.success("Congrats, this is a success message.");
-};
+const form = reactive({
+  name: '',
+  desc: ''
+})
 </script>
 
 <template>
-  <WButton @click="open1">插件式调用</WButton>
-  <WButton @click="open2">函数式调用</WButton>
-  <WButton @click="$message.success('Congrats, this is a success message.')"
-    >全局方法调用</WButton>
+<w-input :modelValue="form.name" show-password type="password" @update:modelValue="form.name = $event"/>
+<w-input v-model="form.desc" type="textarea"/>
+<div>
+  {{ form.name }} {{ form.desc }}
+</div>
 </template>
 
 <style scoped>

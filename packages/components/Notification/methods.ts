@@ -1,10 +1,17 @@
 import { h, isVNode, render, shallowReactive } from 'vue'
-import type { CreateNotificationProps, NotificationHandler, NotificationInstance, NotificationParams, NotificationProps } from './types'
+import { notificationTypes, notificationPosition, type CreateNotificationProps, type NotificationFn, type NotificationHandler, type NotificationInstance, type NotificationParams, type NotificationProps, type NotificationType } from './types'
 import { useId, useZIndex } from '@whimsical-ui/hooks'
-import { findIndex, get, isString } from 'lodash-es'
+import { each, findIndex, get, isString, set } from 'lodash-es'
 import NotificationConstructor from './Notification.vue'
 
-const instances: NotificationInstance[] = shallowReactive([])
+const instancesMap = new Map<NotificationProps['position'], NotificationInstance[]>()
+
+each(notificationPosition, (position) => {
+    instancesMap.set(position, shallowReactive([]))
+})
+
+const getInstancesByPosition = (position: NotificationProps['position']): NotificationInstance[] => instancesMap.get(position)!
+
 const { nextZIndex } = useZIndex()
 
 export const notificationDefaults = {
@@ -25,6 +32,7 @@ const normalizedOptions = (opts: NotificationParams): CreateNotificationProps =>
 const CreateMessage = (props: CreateNotificationProps): NotificationInstance => {
     const id = useId().value
     const container = document.createElement('div')
+    const instances = getInstancesByPosition(props.position || 'top-right')
 
     const destory = () => {
         const idx = findIndex(instances, { id })
@@ -64,9 +72,42 @@ const CreateMessage = (props: CreateNotificationProps): NotificationInstance => 
 
     return instance
 }
+
+export const notification: NotificationFn & Partial<Notification> = (options = {}) => {
+    const normalized = normalizedOptions(options)
+    const instance = CreateMessage(normalized)
+
+    return instance.handler
+}
+
+export function closeAll(type?: NotificationType) {
+    instancesMap.forEach((instances) => {
+        each(instances, (instance) => {
+            if (type) {
+                instance.props.type === type && instance.handler.close()
+                return
+            }
+
+            instance.handler.close()
+        })
+    })  
+}
+
 export function getLastBottomOffset(this: NotificationProps) {
+    const instances = getInstancesByPosition(this.position || 'top-right')
     const idx = findIndex(instances, {id: this.id})
     if (idx <= 0) return 0
-
-    return get(instances, [idx - 1, 'vm', 'exposed', 'bottomOffset'])
+    
+    return get(instances, [idx - 1, 'vm', 'exposed', 'bottomOffset', 'value'])
 }
+
+notification.closeAll = closeAll
+
+each(notificationTypes, (type) => {
+    set(notification, type, (opts: NotificationParams) => {
+        const normalized = normalizedOptions(opts)
+        return notification({...normalized, type})
+    })
+})
+
+export default notification as Notification

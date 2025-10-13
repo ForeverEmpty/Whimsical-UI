@@ -1,0 +1,224 @@
+.w-input {
+  --w-input-text-color: var(--w-text-color-regular);
+  --w-input-border: var(--w-border);
+  --w-input-hover-border: var(--w-border-color-hover);
+  --w-input-focus-border: var(--w-color-primary);
+  --w-input-transparent-border: 0 0 0 1px transparent inset;
+  --w-input-border-color: var(--w-border-color);
+  --w-input-border-radius: var(--w-border-radius-base);
+  --w-input-bg-color: var(--w-fill-color-blank);
+  --w-input-icon-color: var(--w-text-color-placeholder);
+  --w-input-placeholder-color: var(--w-text-color-placeholder);
+  --w-input-hover-border-color: var(--w-border-color-hover);
+  --w-input-clear-hover-color: var(--w-text-color-secondary);
+  --w-input-focus-border-color: var(--w-color-primary);
+}
+
+.w-input {
+  --w-input-height: var(--w-component-size);
+  position: relative;
+  font-size: var(--w-font-size-base);
+  display: inline-flex;
+  width: 100%;
+  line-height: var(--w-input-height);
+  box-sizing: border-box;
+  vertical-align: middle;
+  &.is-disabled {
+    cursor: not-allowed;
+    .w-input__wrapper {
+      background-color: var(--w-disabled-bg-color);
+      box-shadow: 0 0 0 1px var(--w-disabled-border-color) inset;
+    }
+    .w-input__inner {
+      color: var(--w-disabled-text-color);
+      -webkit-text-fill-color: var(--w-disabled-text-color);
+      cursor: not-allowed;
+    }
+    .w-textarea__inner {
+      background-color: var(--w-disabled-bg-color);
+      box-shadow: 0 0 0 1px var(--w-disabled-border-color) inset;
+      color: var(--w-disabled-text-color);
+      -webkit-text-fill-color: var(--w-disabled-text-color);
+      cursor: not-allowed;
+    }
+  }
+  &.is-prepend {
+    >.w-input__wrapper {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  &.is-append {
+    >.w-input__wrapper {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  &.is-focus .w-input__wrapper {
+    box-shadow: 0 0 0 1px var(--w-input-focus-border-color) inset!important
+  }
+}
+
+.w-input--large {
+  --w-input-height: var(--w-component-size-large);
+  font-size: 14px;
+  .w-input__wrapper {
+    padding: 1px 15px;
+    .w-input__inner {
+      --w-input-inner-height: calc(var(--w-input-height, 40px) - 2px);
+    }
+  }
+
+}
+.w-input--small {
+  --w-input-height: var(--w-component-size-small);
+  font-size: 12px;
+  .w-input__wrapper {
+    padding: 1px 7px;
+    .w-input__inner {
+      --w-input-inner-height: calc(var(--w-input-height, 24px) - 2px);
+    } 
+  }
+}
+.w-input__prefix, .w-input__suffix {
+  display: inline-flex;
+  white-space: nowrap;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  height: 100%;
+  text-align: center;
+  color: var(--w-input-icon-color, var(--w-text-color-placeholder));
+  transition: all var(--w-transition-duration);
+}
+.w-input__prefix {
+  >:first-child {
+    margin-left: 0px !important;
+  }
+  >:last-child {
+    margin-right: 8px !important;
+  }
+}
+.w-input__suffix {
+  >:first-child {
+    margin-left: 8px !important;
+  }
+  >:last-child {
+    margin-right: 0px !important;
+  }
+}
+.w-input__prepend, .w-input__append {
+  background-color: var(--w-fill-color-light);
+  color: var(--w-color-info);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  border-radius: var(--w-input-border-radius);
+  padding: 0 20px;
+  white-space: nowrap;
+}
+.w-input__prepend {
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 1px 0 0 0 var(--w-input-border-color) inset,0 1px 0 0 var(--w-input-border-color) inset,0 -1px 0 0 var(--w-input-border-color) inset;
+
+}
+.w-input__append {
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: 0 1px 0 0 var(--w-input-border-color) inset,0 -1px 0 0 var(--w-input-border-color) inset,-1px 0 0 0 var(--w-input-border-color) inset;
+  & >.w-input__wrapper {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.w-input--textarea {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  vertical-align: bottom;
+  font-size: var(--w-font-size-base);
+}
+.w-textarea__wrapper {
+  position: relative;
+  display: block;
+  resize: vertical;
+  padding: 5px 11px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: inherit;
+  font-family: inherit;
+  color: var(--w-input-text-color, var(--w-text-color-regular));
+  background-color: var(--w-input-bg-color, var(--w-fill-color-blank));
+  background-image: none;
+  -webkit-appearance: none;
+  box-shadow: 0 0 0 1px var(--w-input-border-color, var(--w-border-color)) inset;
+  border-radius: var(--w-input-border-radius, var(--w-border-radius-base));
+  transition: var(--w-transition-box-shadow);
+  border: none;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--w-input-focus-border-color) inset;
+  }
+  &::placeholder {
+    color: var(--w-input-placeholder-color);
+  }
+}
+.w-input__wrapper {
+  display: inline-flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 11px;
+  background-color: var(--w-input-bg-color, var(--w-fill-color-blank));
+  background-image: none;
+  border-radius: var(--w-input-border-radius, var(--w-border-radius-base));
+  transition: var(--w-transition-box-shadow);
+  box-shadow: 0 0 0 1px var(--w-input-border-color, var(--w-border-color)) inset;
+  &:hover {
+    box-shadow: 0 0 0 1px var(--w-input-hover-border-color) inset;
+  }
+  &.is-focus {
+    box-shadow: 0 0 0 1px var(--w-input-focus-border-color) inset;
+  }
+  .w-input__inner {
+    --w-input-inner-height: calc(var(--w-input-height, 32px) - 2px);
+    width: 100%;
+    flex-grow: 1;
+    -webkit-appearance: none;
+    color: var(--w-input-text-color, var(--w-text-color-regular));
+    font-size: inherit;
+    height: var(--w-input-inner-height);
+    line-height: var(--w-input-inner-height);
+    padding: 0;
+    outline: none;
+    border: none;
+    background: none;
+    box-sizing: border-box;
+    &::placeholder {
+      color: var(--w-input-placeholder-color);
+    }
+  }  
+  .w-icon {
+    height: inherit;
+    line-height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--w-transition-duration);
+    margin-left: 8px;
+  }
+  .w-input__clear, .w-input__password {
+    color: var(--w-input-icon-color);
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+     color: var(--w-input-clear-hover-color);
+    }
+  }
+}

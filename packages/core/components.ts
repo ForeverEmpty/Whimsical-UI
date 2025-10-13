@@ -1,4 +1,19 @@
-import { WButton, WButtonGroup, WIcon, WCollapse, WCollapseItem, WAlert, WTooltip, WPopconfirm, WDropdown, WDropdownItem, WConfigProvider, WMessage } from '@whimsical-ui/components'
+import { 
+    WButton, 
+    WButtonGroup, 
+    WIcon, 
+    WCollapse, 
+    WCollapseItem, 
+    WAlert, 
+    WTooltip, 
+    WPopconfirm, 
+    WDropdown, 
+    WDropdownItem, 
+    WConfigProvider, 
+    WMessage, 
+    WNotification, 
+    WInput 
+} from '@whimsical-ui/components'
 import type { Plugin } from 'vue'
 
 export default [
@@ -13,5 +28,7 @@ export default [
     WDropdown,
     WDropdownItem,
     WConfigProvider,
-    WMessage
+    WMessage,
+    WNotification,
+    WInput
 ] as Plugin[]

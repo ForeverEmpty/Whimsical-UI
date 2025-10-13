@@ -6,7 +6,8 @@ export const notificationTypes = [
   'warning',
   'danger',
 ] as const
-export type notificationType = (typeof notificationTypes)[number]
+
+export type NotificationType = (typeof notificationTypes)[number]
 
 export const notificationPosition = [
   'top-right',
@@ -42,7 +43,7 @@ export interface NotificationInstance {
 }
 
 export interface NotificationCompInstance {
-    close(): void,
+    close(): void
     bottomOffset: Ref<number>
 }
 
@@ -60,7 +61,7 @@ export type NotificationParams = string | VNode | NotificationOptions
 
 export type NotificationFn = {
   (props: NotificationParams): NotificationHandler
-  closeAll(type?: notificationType): void
+  closeAll(type?: NotificationType): void
 }
 
 export type NotificationTypeFn = (
