@@ -1,43 +1,36 @@
-<script setup lang="ts">
-import { h } from "vue";
-import { WMessage, WMessageBox } from "whimsical-ui";
-import { delay } from "lodash-es";
+<script setup>
+import { ref } from "vue";
+import { WLoading } from "whimsical-ui";
 
-function openMsgBox() {
-  const action = WMessageBox({
-    title: "Message",
-    message: h("p", null, [
-      h("span", null, "Message can be "),
-      h("i", { style: "color: teal" }, "VNode"),
-    ]),
-    showCancelButton: true,
-    confirmButtonText: "Yes",
-    cancelButtonText: "No",
-    type: "danger",
-    icon: "trash",
-    beforeClose(action, instance, done) {
-      if (action !== "confirm") {
-        done();
-        return;
-      }
-      instance.confirmButtonLoading = true;
-      instance.confirmButtonText = "Loading...";
-      delay(() => {
-        done();
-        delay(() => (instance.confirmButtonLoading = false), 1000);
-      }, 3000);
-    },
-    callback(action) {
-      if (action === "confirm") {
-        WMessage.info(action);
-      } else {
-        WMessage.warning(action);
-      }
-    }
+const loading = ref(false);
+
+function openLoading1() {
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+  }, 2000);
+}
+
+function openLoading2() {
+  const _loading = WLoading.service({
+    lock: true,
+    spinner: "circle-notch",
+    text: "加载中...",
+    background: "rgba(255,255,255,0.5)",
   });
+  setTimeout(() => {
+    _loading.close();
+  }, 2000);
 }
 </script>
 
 <template>
-  <W-button @click="openMsgBox" plain>Click to open Message Box</W-button>
+  <w-button
+    v-loading.fullscreen.lock="loading"
+    type="primary"
+    @click="openLoading1"
+  >
+    As a directive
+  </w-button>
+  <w-button type="primary" @click="openLoading2"> As a service </w-button>
 </template>
