@@ -15,6 +15,9 @@ import {
     WInput, 
     WMessageBox,
     WLoading,
+    WSwitch,
+    WSelect,
+    WOption
 } from '@whimsical-ui/components'
 import type { Plugin } from 'vue'
 
@@ -34,5 +37,8 @@ export default [
     WNotification,
     WInput,
     WMessageBox,
-    WLoading
+    WLoading,
+    WSwitch,
+    WSelect,
+    WOption
 ] as Plugin[]

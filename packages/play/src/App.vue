@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { WLoading } from "whimsical-ui";
 
 const loading = ref(false);
+const switchVal = ref(1)
 
 function openLoading1() {
   loading.value = true;
@@ -33,4 +34,6 @@ function openLoading2() {
     As a directive
   </w-button>
   <w-button type="primary" @click="openLoading2"> As a service </w-button>
+  <w-switch v-model="switchVal" :active-value="0" :inactive-value="1" />
+  {{ switchVal }}
 </template>

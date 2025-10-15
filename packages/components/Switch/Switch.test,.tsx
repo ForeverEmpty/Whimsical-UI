@@ -16,12 +16,12 @@ describe('Switch.vue', () => {
     });
 
     await wrapper.trigger('click');
-    expect(wrapper.emitted()['update:modelValue'][0]).toEqual([true]);
-    expect(wrapper.emitted()['change'][0]).toEqual([true]);
+    expect(wrapper.emitted()['update:modelValue']![0]).toEqual([true]);
+    expect(wrapper.emitted()['change']![0]).toEqual([true]);
 
     await wrapper.trigger('click');
-    expect(wrapper.emitted()['update:modelValue'][1]).toEqual([false]);
-    expect(wrapper.emitted()['change'][1]).toEqual([false]);
+    expect(wrapper.emitted()['update:modelValue']![1]).toEqual([false]);
+    expect(wrapper.emitted()['change']![1]).toEqual([false]);
   });
 
   it('should not toggle when disabled', async () => {
