@@ -17,7 +17,9 @@ import {
     WLoading,
     WSwitch,
     WSelect,
-    WOption
+    WOption,
+    WForm,
+    WFormItem
 } from '@whimsical-ui/components'
 import type { Plugin } from 'vue'
 
@@ -40,5 +42,7 @@ export default [
     WLoading,
     WSwitch,
     WSelect,
-    WOption
+    WOption,
+    WForm,
+    WFormItem
 ] as Plugin[]

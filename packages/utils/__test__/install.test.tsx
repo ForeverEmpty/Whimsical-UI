@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, createApp } from 'vue'
-import { makeInstall, withInstall } from '../install'
+import { withInstall } from '../install'
 
 const AppComp = defineComponent({
     setup() {

@@ -1,28 +1,63 @@
-<script setup>
-import { ref } from "vue";
-import { WSelect, WOption, WInput } from "whimsical-ui";
+<script lang="ts" setup>
+import { reactive, ref } from "vue";
+import { WMessage, type FormInstance } from "whimsical-ui";
+
+const formRef = ref<FormInstance>();
+const form = reactive({
+  name: "",
+  region: "",
+  delivery: false,
+  desc: "",
+});
 
 const options = ref([
-  { value: "beijing", label: "Beijing" },
-  { value: "shanghai", label: "Shanghai" },
-  { value: "shenzhen", label: "Shenzhen", disabled: true },
-  { value: "hangzhou", label: "Hangzhou" },
+  { value: "beijing", label: "Zone One" },
+  { value: "shanghai", label: "Zone Two" },
 ]);
-const value = ref('')
+
+const rules = reactive({
+  name: [
+    { required: true, message: "请输入活动名称", trigger: "blur" },
+    { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+  ],
+  region: [{ required: true, message: "请选择活动区域", trigger: "change" }],
+  desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }],
+});
+
+const onSubmit = () => {
+  formRef.value?.validate().then((valid) => {
+    if (valid) {
+      WMessage.success("submit!");
+    }
+  });
+};
+
+const onReset = () => {
+  formRef.value?.resetFields();
+};
 </script>
 
 <template>
-  <w-select v-model="value" :options="options" filterable clearable />
-  <w-select v-model="value" filterable clearable>
-    <w-option value="beijing" label="Beijing" />
-    <w-option value="shanghai" label="Shanghai" />
-    <w-option value="shenzhen" label="Shenzhen" />
-    <w-option value="hangzhou" label="Hangzhou" />
-  </w-select>
-  <w-input type="text"></w-input>
-  <w-button>123131</w-button>
-  <w-tooltip style="margin: 500px;" placement="right">
-    <template #content> multiple lines1111<br />second line </template>
-    <w-button>123</w-button>
-  </w-tooltip>
+  <w-form ref="formRef" :model="form" :rules="rules">
+    <w-form-item label="Activity name" prop="name">
+      <w-input v-model="form.name" />
+    </w-form-item>
+    <w-form-item label="Activity zone" prop="region">
+      <w-select
+        v-model="form.region"
+        placeholder="please select your zone"
+        :options="options"
+      />
+    </w-form-item>
+    <w-form-item label="Instant delivery" prop="delivery">
+      <w-switch v-model="form.delivery" />
+    </w-form-item>
+    <w-form-item label="Activity form" prop="desc">
+      <w-input v-model="form.desc" type="textarea" />
+    </w-form-item>
+    <w-form-item>
+      <w-button type="primary" @click="onSubmit">Create</w-button>
+      <w-button @click="onReset">Reset</w-button>
+    </w-form-item>
+  </w-form>
 </template>

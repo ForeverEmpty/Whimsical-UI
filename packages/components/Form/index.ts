@@ -5,4 +5,5 @@ import { withInstall } from '@whimsical-ui/utils'
 export const WForm = withInstall(Form)
 export const WFormItem = withInstall(FormItem)
 
+export * from './hooks'
 export * from './types'

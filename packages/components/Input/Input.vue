@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, watch, useAttrs, shallowRef, nextTick } from 'vue'
 import type { InputProps, InputEmits, InputInstance } from './types'
-import { useFoucusControllers, useId } from '@whimsical-ui/hooks'
+import { useFoucusControllers } from '@whimsical-ui/hooks'
 import Icon from '../Icon/Icon.vue'
 import { noop, each } from 'lodash-es'
-import { useFormItem } from '../Form/hooks'
+import { useFormItem, useFormDisabled, useFormItemInputId } from '../Form'
 import { debugWarn } from '@whimsical-ui/utils'
 
 defineOptions({
@@ -21,9 +21,9 @@ const attrs = useAttrs()
 
 const innerValue = ref(props.modelValue)
 const pwdVisible = ref(false)
-const isDisabled = computed(() => props.disabled)
+const isDisabled = useFormDisabled()
 const { formItem } = useFormItem()
-const inputId = useId().value
+const { inputId } = useFormItemInputId(props, formItem)
 
 const inputRef = shallowRef<HTMLInputElement>()
 const textareaRef = shallowRef<HTMLTextAreaElement>()
@@ -33,7 +33,6 @@ const _ref = computed(() => inputRef.value || textareaRef.value)
 const { wrapperRef, isFocused, handleFocus, handleBlur } = useFoucusControllers(
     _ref, {
     afterBlur() {
-        //form 校验
         formItem?.validate('blur').catch((err) => debugWarn(err))
     },
 })

@@ -100,5 +100,5 @@ defineExpose<FormInstance>({
 </template>
 
 <style scoped>
-
+@import './style.css';
 </style>
