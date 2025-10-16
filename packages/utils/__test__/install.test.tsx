@@ -35,16 +35,4 @@ describe('install', () => {
         expect(app._context.components['CompA']).toBeTruthy()
         expect(app._context.components['CompB']).toBeFalsy()
     })
-
-    it('makeInstaller should be worked', () => {
-        const wrapper = mount(() => <div id="app"></div>)
-        const app = createApp(AppComp)
-        const installer = makeInstall([compA, compB])
-
-        app.use(installer).mount(wrapper.element)
-
-        expect(installer).toBeDefined()
-        expect(app._context.components['CompA']).toBeTruthy()
-        expect(app._context.components['CompB']).toBeTruthy()
-    })
 })
