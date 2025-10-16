@@ -28,7 +28,7 @@
     -webkit-appearance: none;
     &::-ms-reveal {
       display: none;
-      pointer-events: none;
+      pointer-events:none;
     }
     &::-ms-clear {
       display: none;

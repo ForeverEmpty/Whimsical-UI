@@ -1,39 +1,28 @@
 <script setup>
 import { ref } from "vue";
-import { WLoading } from "whimsical-ui";
+import { WSelect, WOption, WInput } from "whimsical-ui";
 
-const loading = ref(false);
-const switchVal = ref(1)
-
-function openLoading1() {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
-}
-
-function openLoading2() {
-  const _loading = WLoading.service({
-    lock: true,
-    spinner: "circle-notch",
-    text: "加载中...",
-    background: "rgba(255,255,255,0.5)",
-  });
-  setTimeout(() => {
-    _loading.close();
-  }, 2000);
-}
+const options = ref([
+  { value: "beijing", label: "Beijing" },
+  { value: "shanghai", label: "Shanghai" },
+  { value: "shenzhen", label: "Shenzhen", disabled: true },
+  { value: "hangzhou", label: "Hangzhou" },
+]);
+const value = ref('')
 </script>
 
 <template>
-  <w-button
-    v-loading.fullscreen.lock="loading"
-    type="primary"
-    @click="openLoading1"
-  >
-    As a directive
-  </w-button>
-  <w-button type="primary" @click="openLoading2"> As a service </w-button>
-  <w-switch v-model="switchVal" :active-value="0" :inactive-value="1" />
-  {{ switchVal }}
+  <w-select v-model="value" :options="options" filterable clearable />
+  <w-select v-model="value" filterable clearable>
+    <w-option value="beijing" label="Beijing" />
+    <w-option value="shanghai" label="Shanghai" />
+    <w-option value="shenzhen" label="Shenzhen" />
+    <w-option value="hangzhou" label="Hangzhou" />
+  </w-select>
+  <w-input type="text"></w-input>
+  <w-button>123131</w-button>
+  <w-tooltip style="margin: 500px;" placement="right">
+    <template #content> multiple lines1111<br />second line </template>
+    <w-button>123</w-button>
+  </w-tooltip>
 </template>

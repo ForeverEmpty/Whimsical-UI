@@ -4,6 +4,8 @@ import type { InputProps, InputEmits, InputInstance } from './types'
 import { useFoucusControllers, useId } from '@whimsical-ui/hooks'
 import Icon from '../Icon/Icon.vue'
 import { noop, each } from 'lodash-es'
+import { useFormItem } from '../Form/hooks'
+import { debugWarn } from '@whimsical-ui/utils'
 
 defineOptions({
     name: 'WInput',
@@ -20,6 +22,8 @@ const attrs = useAttrs()
 const innerValue = ref(props.modelValue)
 const pwdVisible = ref(false)
 const isDisabled = computed(() => props.disabled)
+const { formItem } = useFormItem()
+const inputId = useId().value
 
 const inputRef = shallowRef<HTMLInputElement>()
 const textareaRef = shallowRef<HTMLTextAreaElement>()
@@ -30,6 +34,7 @@ const { wrapperRef, isFocused, handleFocus, handleBlur } = useFoucusControllers(
     _ref, {
     afterBlur() {
         //form 校验
+        formItem?.validate('blur').catch((err) => debugWarn(err))
     },
 })
 
@@ -53,7 +58,7 @@ const clear: InputInstance['clear'] = function () {
         emits(e as any, '')
     })
     emits('clear')
-    // 清空表单校验
+    formItem?.clearValidate()
 }
 
 const focus: InputInstance['focus'] = async function () {
@@ -84,7 +89,7 @@ function togglePwdVisible() {
 
 watch(() => props.modelValue, (newVal) => {
     innerValue.value = newVal
-    //表单校验
+    formItem?.validate('change').catch((err) => debugWarn(err))
 })
 
 defineExpose<InputInstance>({
@@ -114,14 +119,14 @@ defineExpose<InputInstance>({
             <div v-if="$slots.prepend" class="w-input__prepend">
                 <slot name="prepend"></slot>
             </div>
-            <div class="w-input__warpper" ref="wrapperRef">
-                <span v-if="$slots.prefix" class="w-input__perfix">
+            <div class="w-input__wrapper" ref="wrapperRef">
+                <span v-if="$slots.prefix" class="w-input__prefix">
                     <slot name="prefix"></slot>
                 </span>
                 <input
                     class="w-input__inner"
                     ref="inputRef"
-                    :id="useId().value"
+                    :id="inputId"
                     :type="showPassword ? (pwdVisible ? 'text' : 'password') : type"
                     :disabled="isDisabled"
                     :readonly="readonly"
@@ -136,25 +141,28 @@ defineExpose<InputInstance>({
                     @focus="handleFocus"
                     @blur="handleBlur"
                 />
-                <span v-if="$slots.suffix || showClear || showPwdArea" class="w-input__suffix">
+                <span
+                    v-if="$slots.suffix || showClear || showPwdArea"
+                    class="w-input__suffix"
+                >
                     <slot name="suffix"></slot>
-                    <Icon 
-                        icon="circle-xmrak"
+                    <Icon
+                        icon="circle-xmark"
                         v-if="showClear"
                         class="w-input__clear"
                         @click="clear"
                         @mousedown.prevent="noop"
                     />
-                    <Icon 
+                    <Icon
                         icon="eye"
-                        v-if="pwdVisible && showPwdArea"
                         class="w-input__password"
+                        v-if="showPwdArea && pwdVisible"
                         @click="togglePwdVisible"
                     />
-                    <Icon 
+                    <Icon
                         icon="eye-slash"
-                        v-if="!pwdVisible && showPwdArea"
                         class="w-input__password"
+                        v-if="showPwdArea && !pwdVisible"
                         @click="togglePwdVisible"
                     />
                 </span>
@@ -167,7 +175,7 @@ defineExpose<InputInstance>({
             <textarea
                 class="w-textarea__wrapper"
                 ref="textareaRef"
-                :id="useId().value"
+                :id="inputId"
                 :disabled="isDisabled"
                 :readonly="readonly"
                 :autocomplete="autocomplete"
@@ -180,8 +188,7 @@ defineExpose<InputInstance>({
                 @change="handleChange"
                 @focus="handleFocus"
                 @blur="handleBlur"
-            >
-            </textarea>
+            ></textarea>
         </template>
     </div>
 </template>
