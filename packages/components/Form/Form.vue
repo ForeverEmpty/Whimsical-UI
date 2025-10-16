@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormProps, FormEmits, FormItemContext, FormInstance, FormValidateCallback, FormContext } from './types'
+import type { FormProps, FormEmits, FormItemContext, FormInstance, FormContext } from './types'
 import { FORM_CTX_KEY } from './constants'
 import { provide, reactive, toRefs } from 'vue'
 import { each, filter, includes, size } from 'lodash-es';
